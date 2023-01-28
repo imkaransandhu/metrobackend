@@ -17,20 +17,26 @@ app.listen(PORT, () => {
 });
 
 //////////////Mongoose Connection///////////
-mongoose.connect(process.env.mongoUrl)
-  .then(() => { console.log("connected") })
-  .catch((error) => { console.log(error) });
-
+mongoose
+  .connect(
+    process.env.mongoUrl ||
+      "mongodb+srv://root1:pass123@cluster0.nfckp1n.mongodb.net/geeksOnMission?retryWrites=true"
+  )
+  .then(() => {
+    console.log("connected");
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 /////////////////Router////////////////////
 
 const { karanRouter } = require("./Routers/KaranRouter");
 const PropertyManagersRouter = require("./Routers/PropertyManagersRouter");
-const SubscribeRouter = require("./Routers/SubscribeRouter")
-const SendMessageRouter = require("./Routers/SendMessageRouter")
+const SubscribeRouter = require("./Routers/SubscribeRouter");
+const SendMessageRouter = require("./Routers/SendMessageRouter");
 /////////////////////////
 app.use(karanRouter);
 app.use(PropertyManagersRouter);
 app.use(SubscribeRouter);
-app.use(SendMessageRouter)
-
+app.use(SendMessageRouter);
